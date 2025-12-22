@@ -8,19 +8,19 @@ public class Player {
     private Room currentRoom;
 
     //methods
-    void moveTo(Room r){
+    public void moveTo(Room r){
         moveHistory.push(r);
     }
 
-    void goBack(){
+    public void goBack(){
         moveHistory.pops();
     } //pops from stack
 
-    void pickupItem(String name){
+    public void pickupItem(String name){
         inverntory.add(name);
     }
 
-    boolean hasKey(String keyName){
+    public boolean hasKey(String keyName){
         
     }
 }
