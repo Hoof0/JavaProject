@@ -27,6 +27,13 @@ public class Player {
     }
 
     public boolean hasKey(String keyName){
-        
+        for (Item i : inventory)
+        {
+            if (i.getName() == keyName)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
