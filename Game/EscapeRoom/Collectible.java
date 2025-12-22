@@ -1,5 +1,5 @@
 package Game.EscapeRoom;
 
-public class Collectible {
+public interface Collectible {
     void collect(Player p);
 }
