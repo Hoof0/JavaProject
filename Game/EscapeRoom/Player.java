@@ -4,8 +4,14 @@ import java.util.ArrayList;
 
 public class Player {
     private Stack<Room> moveHistory;
-    private ArrayList<Item> inverntory;
+    private ArrayList<Item> inventory;
     private Room currentRoom;
+
+    Player(Stack<Room> moveHistory, ArrayList<Item> inventory, Room currentRoom){
+        this.moveHistory = moveHistory;
+        this.inventory = inventory;
+        this.currentRoom = currentRoom;
+    }
 
     //methods
     public void moveTo(Room r){
