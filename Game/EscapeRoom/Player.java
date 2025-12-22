@@ -1,10 +1,12 @@
+package Game.EscapeRoom;
+
 import java.util.Stack;
 import java.util.ArrayList;
 
 
 public class Player {
     private Stack<Room> moveHistory;
-    private ArrayList<Item> inverntory;
+    private ArrayList<Item> inventory;
     private Room currentRoom;
 
     //methods
@@ -17,7 +19,7 @@ public class Player {
     } //pops from stack
 
     void pickupItem(String name){
-        inverntory.add(name);
+        inventory.add(name);
     }
 
     boolean hasKey(String keyName){
