@@ -25,7 +25,10 @@ public class Room
         int maxRoomDepth = 0;
         for(int i = 0; i < connectedRooms.size(); i++)
         {
-            int connectedRoomDepth = 
+            int connectedRoomDepth = maxDepthRecursive();
+            int maxConnectedDepth = Math.max(maxRoomDepth, connectedRoomDepth);
         }
+
+        return maxConnectedDepth + 1;
     }
 }
