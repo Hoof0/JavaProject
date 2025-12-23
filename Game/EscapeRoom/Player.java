@@ -16,7 +16,15 @@ public class Player {
     //methods
     public void moveTo(Room r){
         moveHistory.push(r);
-        currentRoom = r;
+        for (int i = 0; i < connectedRooms.size(); i++){
+            if(r == connectedRooms[i]){
+                currentRoom = r;
+            }
+            else {
+                System.err.println("Room is not connected");
+            }
+        }
+
     }
 
     public void goBack(){
