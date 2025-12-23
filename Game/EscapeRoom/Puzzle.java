@@ -1,4 +1,3 @@
-package Game.EscapeRoom;
 
 public abstract class Puzzle extends GameComponent implements Comparable<Puzzle> {
     protected int difficulty;

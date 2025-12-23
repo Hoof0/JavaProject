@@ -1,4 +1,3 @@
-package Game.EscapeRoom;
 
 public class RiddlePuzzle extends Puzzle{
     

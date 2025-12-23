@@ -1,4 +1,4 @@
-package Game.EscapeRoom;
+
 
 public class InvalidCommandException extends Exception {
     InvalidCommandException(String message)

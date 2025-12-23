@@ -1,4 +1,4 @@
-package Game.EscapeRoom;
+
 
 public class Item extends GameComponent implements Collectible, Comparable<Item> {
     private int value;

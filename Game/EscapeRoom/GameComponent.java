@@ -1,4 +1,4 @@
-package Game.EscapeRoom;
+
 
 public abstract class GameComponent {
     protected String name;
