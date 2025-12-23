@@ -33,7 +33,7 @@ public class GameEngine {
                 String destination = scanner.nextLine();
                 destination = destination.toLowerCase();
                 for(int i = 0; i < connectRoom.size(); i++){
-                    if (destination == connectRoom.get(i).getRoomName().toLowerCase()){
+                    if (destination.equals(connectRoom.get(i).getRoomName().toLowerCase())){
                         player.moveTo(connectRoom.get(i));
                     }
                 }
@@ -75,6 +75,42 @@ public class GameEngine {
                     {
                         System.out.println("Item not found in this room.");
                     }
+                    scanner.close();
+                }
+                break;
+            case "inventory":
+                ArrayList<Item> tempIven = player.getInventory();
+                System.err.println("Iventory: ");
+                for (int i = 0; i < tempIven.size(); i ++){
+                    System.err.println(tempIven(i).getName());
+                }
+                break;
+            case "solve":
+                System.out.println("Name of puzzle you want to solve: ");
+                String puzzleName = scanner.nextLine();
+                System.out.println("Enter your answer: ");
+                String answer = scanner.nextLine();
+                GameComponent currContent;
+                
+                for (int i = 0; i < curr.getContents().size(); i++){
+                    currContent = curr.getContents().get(i);
+                    
+                    if(currContent.getName().equals(puzzleName)){
+                        Puzzle puzzle = (Puzzle) currContent;
+                        try {
+                boolean solved = puzzle.attemptSolve(answer);
+                if (solved) {
+                    System.out.println("Puzzle solved!");
+                } else {
+                    System.out.println("Incorrect answer.");
+                }
+                } catch (InvalidPuzzleException e) {
+                System.out.println(e.getMessage());
+                }
+                }
+                else {
+                    System.err.println("No item of that name found");
+                }
                 }
                 break;
             default:
