@@ -18,13 +18,12 @@ public class GameEngine {
 
     void processCommand(String cmd){
         cmd = cmd.toLowerCase();
+        Room curr = player.getCurrentRoom();
         switch (cmd) {
             case "look":
-                Room curr = player.getCurrentRoom();
                 curr.toString();
                 break;
             case "move":
-                Room curr = player.getCurrentRoom();
                 ArrayList<Room> connectRoom = curr.getConnectedRoom();
                 for(int i = 0; i < connectRoom.size(); i++){
                     System.out.println(connectRoom.get(i).toString());
@@ -41,8 +40,10 @@ public class GameEngine {
                 scanner.close();
                 break;
             case "back":
+                player.goBack();
                 break;
             case "pickup":
+                
                 break;
             default:
                 break;

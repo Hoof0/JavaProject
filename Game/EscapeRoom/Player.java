@@ -39,7 +39,9 @@ public class Player {
 
 
     public void goBack(){
+        currentRoom = moveHistory.peek();
         moveHistory.pop();
+    
     } //pops from stack
 
     public void pickupItem(Item i){
