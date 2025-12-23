@@ -42,8 +42,8 @@ public class Player {
         moveHistory.pop();
     } //pops from stack
 
-    public void pickupItem(String name){
-        inventory.add();
+    public void pickupItem(Item i){
+        inventory.add(i);
     }
 
     public boolean hasKey(String keyName){
