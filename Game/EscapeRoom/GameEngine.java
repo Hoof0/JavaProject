@@ -46,6 +46,7 @@ public class GameEngine {
                 
                 break;
             default:
+                System.err.println("Invalid comand");
                 break;
         }
     }
