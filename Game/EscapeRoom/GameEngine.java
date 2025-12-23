@@ -113,6 +113,9 @@ public class GameEngine {
                 }
                 }
                 break;
+            case "map":
+                
+                break;
             default:
                 System.err.println("Invalid comand");
                 break;
