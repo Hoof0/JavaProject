@@ -33,6 +33,11 @@ public class Room
         return roomName;
     }
 
+    public ArrayList<GameComponent> getContents()
+    {
+        return contents;
+    }
+
     public void setExit(boolean exit)
     {
         isExit = exit;
@@ -47,12 +52,12 @@ public class Room
     {
         if(depth == 0)
         {
-            System.out.println("Room info: " + this.toString()); // Example: print room details
+            System.out.println("Room info:\n " + this.toString()); // Example: print room details
             return;
         }
         if(connectedRooms.isEmpty())
         {
-            System.out.println("Room info:" + this.toString());
+            System.out.println("Room info:\n" + this.toString());
         }
         for(int i = 0; i < connectedRooms.size(); i++)
         {
