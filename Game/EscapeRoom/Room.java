@@ -24,6 +24,10 @@ public class Room
         return isExit;
     }
 
+    public ArrayList<Room> getConnectedRoom(){
+        return connectedRooms;
+    }
+
     public String getRoomName()
     {
         return roomName;

@@ -13,11 +13,20 @@ public class Player {
         this.currentRoom = currentRoom;
     }
 
+    public Room getCurrentRoom(){
+        return currentRoom;
+    }
+
+
+
+
+
     //methods
     public void moveTo(Room r){
         moveHistory.push(r);
-        for (int i = 0; i < connectedRooms.size(); i++){
-            if(r == connectedRooms[i]){
+        ArrayList<Room> temp = currentRoom.getConnectedRoom();
+        for (int i = 0; i < currentRoom.getConnectedRoom().size(); i++){
+            if(r == temp.get(i)){
                 currentRoom = r;
             }
             else {
@@ -27,12 +36,13 @@ public class Player {
 
     }
 
+
+
     public void goBack(){
         moveHistory.pop();
     } //pops from stack
 
     public void pickupItem(String name){
-        
         inventory.add();
     }
 

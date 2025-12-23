@@ -20,7 +20,10 @@ public class GameEngine {
                 
                 break;
             case "move":
-                System.err.println();
+                String destination = "";
+                for(int i = 0; i < .getConnectedRoom().size(); i++){
+
+                }
             default:
                 break;
         }
