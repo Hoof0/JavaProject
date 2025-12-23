@@ -3,9 +3,13 @@ public abstract class Puzzle extends GameComponent implements Comparable<Puzzle>
     protected int difficulty;
     protected boolean solved;
 
-    
-    public void inspect(){
+    Puzzle(int difficulty, boolean solved){
+        this.difficulty = difficulty;
+        this.solved = solved;
+    }
 
+    public void inspect(){
+        
     }
 
     public String getName(){

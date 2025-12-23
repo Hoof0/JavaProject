@@ -16,14 +16,16 @@ public class Player {
     //methods
     public void moveTo(Room r){
         moveHistory.push(r);
+        currentRoom = r;
     }
 
     public void goBack(){
-        moveHistory.pops();
+        moveHistory.pop();
     } //pops from stack
 
     public void pickupItem(String name){
-        inverntory.add(name);
+        
+        inventory.add();
     }
 
     public boolean hasKey(String keyName){
