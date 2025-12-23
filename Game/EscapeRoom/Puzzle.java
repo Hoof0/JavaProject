@@ -3,7 +3,8 @@ public abstract class Puzzle extends GameComponent implements Comparable<Puzzle>
     protected int difficulty;
     protected boolean solved;
 
-    Puzzle(int difficulty, boolean solved){
+    Puzzle(String name, int difficulty, boolean solved){
+        super(name);
         this.difficulty = difficulty;
         this.solved = solved;
     }
@@ -17,7 +18,7 @@ public abstract class Puzzle extends GameComponent implements Comparable<Puzzle>
     }
 
     //method
-    public abstract boolean attemptSolve(String answer) throws InvalidPuzzleException;
+    public abstract boolean attemptSolve(String answer);
 
     @Override
     public int compareTo(Puzzle o) {  
