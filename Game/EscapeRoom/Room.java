@@ -102,22 +102,39 @@ public class Room
     {
         String string = "";
         string += "Contents:\n";
-        for (int i = 0; i < contents.size(); i++) 
+
+        if(contents.isEmpty())
         {
-            string += contents.get(i).getName();
-            if(i < contents.size() - 1) // the last one will not have ","
+            string += "- Nothing in this room.";
+        }
+        else
+        {
+            string += "- ";
+            for (int i = 0; i < contents.size(); i++) 
             {
-                string += ", ";
+                string += contents.get(i).getName();
+                if(i < contents.size() - 1) // the last one will not have ","
+                {
+                    string += ", ";
+                }
             }
         }
 
-        string += "\nConnected Rooms:";
-        for (int i = 0; i < connectedRooms.size(); i++) 
+        string += "\nConnected Rooms:\n";
+        if(connectedRooms.isEmpty())
         {
-            string += connectedRooms.get(i).getRoomName();
-            if(i < connectedRooms.size() - 1) 
+            string += "- This room is not connected to any room.";
+        }
+        else
+        {
+            string += "- ";
+            for (int i = 0; i < connectedRooms.size(); i++) 
             {
-                string += ", ";
+                string += connectedRooms.get(i).getRoomName();
+                if(i < connectedRooms.size() - 1) 
+                {
+                    string += ", ";
+                }
             }
         }
 

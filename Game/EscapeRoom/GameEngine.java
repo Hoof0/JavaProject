@@ -42,7 +42,7 @@ public class GameEngine {
         Room curr = player.getCurrentRoom();
         switch (cmd) {
             case "look":
-                curr.toString();
+                System.out.println(curr.toString());
                 break;
             case "move":
                 ArrayList<Room> connectRoom = curr.getConnectedRoom();
@@ -83,11 +83,11 @@ public class GameEngine {
                         if(roomContents.get(i).getName().toLowerCase().equals(itemName))
                         {
                             player.pickupItem((Item)roomContents.get(i));
+                            roomContents.remove(i);
+                            System.out.println("Picked up successfully.");
+                            found = true;
+                            break;
                         }
-                        roomContents.remove(i);
-                        System.out.println("Picked up successfully.");
-                        found = true;
-                        break;
                     }
 
                     if(!found)
@@ -98,7 +98,7 @@ public class GameEngine {
                 break;
             case "inventory":
                 ArrayList<Item> tempIven = player.getInventory();
-                System.out.println("Iventory: ");
+                System.out.println("Inventory: ");
                 for (int i = 0; i < tempIven.size(); i ++){
                     System.out.println(tempIven.get(i).getName());
                 }
@@ -119,7 +119,7 @@ public class GameEngine {
                             System.out.println("Your answer is correct");
                         }
                         else {
-                            System.out.println("Your answer is incorect");
+                            System.out.println("Your answer is incorrect");
                         }
                     }
                 else {
@@ -133,7 +133,7 @@ public class GameEngine {
                 helpMap(curr, visted, 0);
                 break;
             default:
-                System.out.println("Invalid comand");
+                System.out.println("Invalid command");
                 break;
         }
     }
