@@ -1,6 +1,7 @@
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -16,7 +17,20 @@ public class GameEngine {
         }
     }
 
-    void processCommand(String cmd){
+
+    private void helpMap(Room room, HashSet<Room> visited, int depth){
+        if (visited.contains(room)){
+            return;
+        }
+        visited.add(room);
+
+        String space = " ".repeat(depth);
+        System.out.println(space + "- " + room.getRoomName() + 
+                          (room == player.getCurrentRoom() ? " (YOU ARE HERE)" : "") +
+                          (room.getExit() ? " [EXIT]" : ""));
+    }
+
+    public void processCommand(String cmd){
         Scanner scanner = new Scanner(System.in);
         cmd = cmd.toLowerCase();
         Room curr = player.getCurrentRoom();
@@ -80,9 +94,9 @@ public class GameEngine {
                 break;
             case "inventory":
                 ArrayList<Item> tempIven = player.getInventory();
-                System.err.println("Iventory: ");
+                System.out.println("Iventory: ");
                 for (int i = 0; i < tempIven.size(); i ++){
-                    System.err.println(tempIven(i).getName());
+                    System.out.println(tempIven(i).getName());
                 }
                 break;
             case "solve":
@@ -109,15 +123,17 @@ public class GameEngine {
                 }
                 }
                 else {
-                    System.err.println("No item of that name found");
+                    System.out.println("No item of that name found");
                 }
                 }
                 break;
             case "map":
-                
+                System.out.println("Map: ");
+                HashSet<Room> visted = new HashSet<>();
+                helpMap(curr, visted, 0);
                 break;
             default:
-                System.err.println("Invalid comand");
+                System.out.println("Invalid comand");
                 break;
         }
     }
