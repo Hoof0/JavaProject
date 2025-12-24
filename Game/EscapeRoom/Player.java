@@ -7,9 +7,7 @@ public class Player {
     private ArrayList<Item> inventory;
     private Room currentRoom;
 
-    Player(Stack<Room> moveHistory, ArrayList<Item> inventory, Room currentRoom){
-        this.moveHistory = moveHistory;
-        this.inventory = inventory;
+    Player(Room currentRoom){
         this.currentRoom = currentRoom;
     }
 

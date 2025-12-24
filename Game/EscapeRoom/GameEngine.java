@@ -9,11 +9,18 @@ import java.util.Scanner;
 public class GameEngine {
     private boolean Win = false;
     private Player player;
-    Queue<String> hint; 
+    Queue<String> hint;
+    private Scanner scanner;
+
+    public GameEngine(Player player){
+        this.player = player;
+        this.scanner = new Scanner(System.in);
+    }
 
     void start(){
         while (Win != true){
-
+            String input = scanner.next();
+            processCommand(input);
         }
     }
 
@@ -31,7 +38,6 @@ public class GameEngine {
     }
 
     public void processCommand(String cmd){
-        Scanner scanner = new Scanner(System.in);
         cmd = cmd.toLowerCase();
         Room curr = player.getCurrentRoom();
         switch (cmd) {
@@ -44,14 +50,13 @@ public class GameEngine {
                     System.out.println(connectRoom.get(i).toString());
                 }
                 System.out.println("Where would you like to move to");
-                String destination = scanner.nextLine();
+                String destination = scanner.next();
                 destination = destination.toLowerCase();
                 for(int i = 0; i < connectRoom.size(); i++){
                     if (destination.equals(connectRoom.get(i).getRoomName().toLowerCase())){
                         player.moveTo(connectRoom.get(i));
                     }
                 }
-                scanner.close();
                 break;
             case "back":
                 player.goBack();
@@ -70,7 +75,7 @@ public class GameEngine {
                         System.out.println(i + "." + roomContents.get(i).getName());
                     }
                     System.out.print("Enter the name of the item you want to pick up: ");
-                    String itemName = scanner.nextLine().trim().toLowerCase();
+                    String itemName = scanner.next().trim().toLowerCase();
                     boolean found = false;
 
                     for(int i = 0; i < roomContents.size(); i++)
@@ -89,7 +94,6 @@ public class GameEngine {
                     {
                         System.out.println("Item not found in this room.");
                     }
-                    scanner.close();
                 }
                 break;
             case "inventory":
@@ -101,9 +105,9 @@ public class GameEngine {
                 break;
             case "solve":
                 System.out.println("Name of puzzle you want to solve: ");
-                String puzzleName = scanner.nextLine();
+                String puzzleName = scanner.next();
                 System.out.println("Enter your answer: ");
-                String answer = scanner.nextLine();
+                String answer = scanner.next();
                 GameComponent currContent;
                 
                 for (int i = 0; i < curr.getContents().size(); i++){

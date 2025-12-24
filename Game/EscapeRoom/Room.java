@@ -7,9 +7,12 @@ public class Room
     private boolean isExit;
     private String roomName;
 
-    public Room()
+
+    public Room(String roomName)
     {
-        roomName = "";
+        this.contents = new ArrayList<>();
+        this.connectedRooms = new ArrayList<>();
+        this.roomName = roomName;
         isExit = false;
     }
 
