@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Scanner;
 
+
 public class GameEngine {
     private boolean Win = false;
-    private ArrayList<Room> map;
     private Player player;
     Queue<String> hint; 
 
@@ -96,7 +96,7 @@ public class GameEngine {
                 ArrayList<Item> tempIven = player.getInventory();
                 System.out.println("Iventory: ");
                 for (int i = 0; i < tempIven.size(); i ++){
-                    System.out.println(tempIven(i).getName());
+                    System.out.println(tempIven.get(i).getName());
                 }
                 break;
             case "solve":
@@ -111,17 +111,13 @@ public class GameEngine {
                     
                     if(currContent.getName().equals(puzzleName)){
                         Puzzle puzzle = (Puzzle) currContent;
-                        try {
-                boolean solved = puzzle.attemptSolve(answer);
-                if (solved) {
-                    System.out.println("Puzzle solved!");
-                } else {
-                    System.out.println("Incorrect answer.");
-                }
-                } catch (InvalidPuzzleException e) {
-                System.out.println(e.getMessage());
-                }
-                }
+                        if (puzzle.attemptSolve(answer)){
+                            System.out.println("Your answer is correct");
+                        }
+                        else {
+                            System.out.println("Your answer is incorect");
+                        }
+                    }
                 else {
                     System.out.println("No item of that name found");
                 }

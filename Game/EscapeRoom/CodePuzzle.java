@@ -2,17 +2,20 @@
 
 public class CodePuzzle extends Puzzle{
     
-    private int pass;
+    private String pass;
 
-    CodePuzzle(String name, int difficulty, int pass){
-        super(name, difficulty);
+    CodePuzzle(String description, String name, int difficulty, String pass){
+        super(description, name, difficulty);
         this.pass = pass;
     }
 
 
     
-    public boolean attemptSolve(int answer) throws InvalidPuzzleException {
-        if (answer == pass) solved = true;
+    public boolean attemptSolve(String answer)/* throws InvalidPuzzleAnswerException /*Implement*/{
+        if (answer.equals(pass)) solved = true;
         else solved = false;
+        return solved;
     }
+
+
 }

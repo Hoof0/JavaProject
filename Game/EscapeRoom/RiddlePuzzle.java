@@ -2,14 +2,16 @@
 public class RiddlePuzzle extends Puzzle{
     private String pass;
 
-    public RiddlePuzzle(String name, int difficulty, boolean solved)
+    public RiddlePuzzle(String description, String name, int difficulty, String pass)
     {
-        super(name, difficulty);
+        super(description, name, difficulty);
+        this.pass = pass;
     }
     
-    public boolean attemptSolve(String answer) throws InvalidPuzzleException{
+    public boolean attemptSolve(String answer)/* throws InvalidPuzzleAnswerException */{
         if (answer.equals(pass)) solved = true;
         else solved = false;
+        return solved;
     }
 
     
