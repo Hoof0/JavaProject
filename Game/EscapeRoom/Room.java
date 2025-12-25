@@ -18,8 +18,6 @@ public class Room
 
     public Room(String name, boolean exit)
     {
-        this.contents = new ArrayList<>();
-        this.connectedRooms = new ArrayList<>();
         roomName = name;
         isExit = exit;
     }
@@ -111,46 +109,14 @@ public class Room
         }
         else
         {
-            ArrayList<Item> items = new ArrayList<Item>(); //separate items from puzzles to prevent the program from confusing
-            ArrayList<Puzzle> puzzles = new ArrayList<Puzzle>();
+            string += "- ";
             for (int i = 0; i < contents.size(); i++) 
             {
-                if (contents.get(i) instanceof Item)
+                string += contents.get(i).getName();
+                if(i < contents.size() - 1) // the last one will not have ","
                 {
-                    items.add((Item)contents.get(i));
+                    string += ", ";
                 }
-                else if (contents.get(i) instanceof Puzzle)
-                {
-                    puzzles.add((Puzzle)contents.get(i));
-                }
-            }
-
-            if (!items.isEmpty()) //display items
-            {
-                string += "Items: ";
-                for (int i = 0; i < items.size(); i++)
-                {
-                    string += items.get(i).getName();
-                    if (i < items.size() - 1)
-                    {
-                        string += ", "; //the last one will not have ,
-                    }
-                }
-                string += "\n";
-            }
-
-            if (!puzzles.isEmpty()) //display puzzles
-            {
-                string += "Puzzles: ";
-                for (int i = 0; i < puzzles.size(); i++)
-                {
-                    string += puzzles.get(i).getName();
-                    if (i < puzzles.size() - 1)
-                    {
-                        string += ", "; //the last one will not have ,
-                    }
-                }
-                string += "\n";
             }
         }
 

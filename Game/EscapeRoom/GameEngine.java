@@ -9,10 +9,8 @@ import java.util.Scanner;
 public class GameEngine {
     private boolean Win = false;
     private Player player;
-    private Queue<String> hint;
+    Queue<String> hint;
     private Scanner scanner;
-    private static int puzzleSolved = 0;
-    private final int ALLPUZZLESSOLVED = 2;
 
     public GameEngine(Player player){
         this.player = player;
@@ -22,10 +20,11 @@ public class GameEngine {
     void start(){
         System.out.println("Text-based escape room game.\nCommands: look, move, back, pickup, inventory, solve, map, quit.\nFind the exit room to win.");
         while (Win != true){
-            String input = scanner.nextLine();
+            String input = scanner.next();
             processCommand(input);
         }
     }
+
 
     private void helpMap(Room room, HashSet<Room> visited, int depth){
         if (visited.contains(room)){
@@ -60,7 +59,7 @@ public class GameEngine {
                     break;
                 }
                 for(int i = 0; i < connectRoom.size(); i++){
-                    System.out.println("Connect to " + connectRoom.get(i).getRoomName());
+                    System.out.println(connectRoom.get(i).getRoomName());
                 }
                 System.out.println("Where would you like to move to?");
                 String destination = scanner.nextLine().trim().toLowerCase();
@@ -70,20 +69,10 @@ public class GameEngine {
                         player.moveTo(connectRoom.get(i));
                         System.out.println("Moved.");
                         moved = true;
-                        if (player.getCurrentRoom().getExit() == true && puzzleSolved == ALLPUZZLESSOLVED) //win condition: reach exit room and solve all puzzles
-                            {
-                                System.out.println("Congratulation, you escaped!");
-                                Win = true;
-                                break;
-                            }
-                            else if (player.getCurrentRoom().getExit() == true && puzzleSolved != ALLPUZZLESSOLVED)
-                            {
-                                System.out.println("You have reached the exit room, but you cannot escape yet, for you haven't solved all puzzles. Return to the previous rooms and complete them.");
-                                break;
-                            }
                         break;
                     }
                 }
+
                 if (!moved)
                 {
                     System.out.println("Invalid room name");
@@ -95,25 +84,16 @@ public class GameEngine {
                 break;
             case "pickup":
                 ArrayList<GameComponent> roomContents = curr.getContents();
-                ArrayList<Item> availableItems = new ArrayList<Item>(); //collect all items in the room to another array list to prevent the game confusing items with puzzles
-                for (int i = 0; i < roomContents.size(); i++)
-                {
-                    if (roomContents.get(i) instanceof Item)
-                    {
-                        availableItems.add((Item) roomContents.get(i));
-                    }
-                }
-                
-                if(availableItems.isEmpty())
+                if(roomContents.isEmpty())
                 {
                     System.out.println("No items in this room.");
                 }
                 else
                 {
                     System.out.println("Items to pick up: ");
-                    for(int i = 0; i < availableItems.size(); i++)
+                    for(int i = 0; i < roomContents.size(); i++)
                     {
-                        System.out.println(i + "." + availableItems.get(i).getName());
+                        System.out.println(i + "." + roomContents.get(i).getName());
                     }
                     System.out.print("Enter the name of the item you want to pick up: ");
                     String itemName = scanner.nextLine().trim().toLowerCase();
@@ -121,7 +101,7 @@ public class GameEngine {
 
                     for(int i = 0; i < roomContents.size(); i++)
                     {
-                        if(roomContents.get(i).getName().toLowerCase().equals(itemName) && roomContents.get(i) instanceof Item)
+                        if(roomContents.get(i).getName().toLowerCase().equals(itemName))
                         {
                             player.pickupItem((Item)roomContents.get(i));
                             roomContents.remove(i);
@@ -146,56 +126,38 @@ public class GameEngine {
                 break;
             case "solve":
                 System.out.println("Name of puzzle you want to solve: ");
-                String puzzleName = scanner.nextLine().trim();
-                boolean puzzleFound = false;
-
+                String puzzleName = scanner.nextLine();
+                System.out.println("Enter your answer: ");
+                int count = 0;
+                
                 for (int i = 0; i < curr.getContents().size(); i++){
                     GameComponent currContent = curr.getContents().get(i);
                     
-                    if(currContent.getName().equals(puzzleName) && currContent instanceof Puzzle){
-                        puzzleFound = true;
+                    if(currContent.getName().equals(puzzleName)){
                         Puzzle puzzle = (Puzzle) currContent;
                         if (puzzle.isSolved()){
-                            System.out.println("This puzzle has already been solved.");
-                            break;
-                        }
-
-                        puzzle.inspect(); //show the puzzle
-                        System.out.println("Enter your answer: ");
-                        String answer = scanner.nextLine().trim();
-                        int count = 0;
-
-                        if (puzzle.attemptSolve(answer))
-                        {
-                            System.out.println("You are correct.");
-                            puzzleSolved++;
+                            System.out.println("Your answer is correct");
                             if (puzzle.getReward() != null){
-                                player.pickupItem(puzzle.getReward());
-                                System.out.println("You received: " + puzzle.getReward().getName());
+                            player.pickupItem(puzzle.getReward());
+                            System.out.println("You received: " + puzzle.getReward().getName());
                             }
                             if (puzzle.getHint() != null && !puzzle.getHint().isEmpty()){
                                 hint.add(puzzle.getHint());
                                 System.out.println("Hint added.");
                             }
-                            count = 0;
                         }
                         else {
                             System.out.println("Your answer is incorrect");
                             count++;
-                            if (count % 3 == 0 && !hint.isEmpty()){
-                                System.out.println("Hint: " + hint.peek());
-                                hint.remove();
-                            }
+                        }
+                        if (count % 3 == 0 && !hint.isEmpty()){
+                            System.out.println("Hint: " + hint.peek());
+                            hint.remove();
                         }
                     }
                 else {
                     System.out.println("No item of that name found");
                 }
-            }
-            
-                if (!puzzleFound)
-                {
-                    System.out.println("Puzzle not found.");
                 }
                 break;
             case "map":
@@ -203,12 +165,8 @@ public class GameEngine {
                 HashSet<Room> visted = new HashSet<>();
                 helpMap(curr, visted, 0);
                 break;
-            case "quit":
-                System.out.println("Game over.");
-                Win = true;
-                break;
             default:
-                System.out.println("Invalid command. Try look, move, back, pickup, inventory, solve, map, quit.");
+                System.out.println("Invalid command");
                 break;
         }
     }
