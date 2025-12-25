@@ -109,6 +109,7 @@ public class GameEngine {
                 System.out.println("Enter your answer: ");
                 String answer = scanner.next();
                 GameComponent currContent;
+                int count = 0;
                 
                 for (int i = 0; i < curr.getContents().size(); i++){
                     currContent = curr.getContents().get(i);
@@ -117,9 +118,21 @@ public class GameEngine {
                         Puzzle puzzle = (Puzzle) currContent;
                         if (puzzle.attemptSolve(answer)){
                             System.out.println("Your answer is correct");
+                            if (puzzle.getReward() != null){
+                            player.pickupItem(puzzle.getReward());
+                            System.out.println("You received: " + puzzle.getReward().getName());
+                            }
+                            if (puzzle.getHint() != null){
+                                hint.add(puzzle.getHint());
+                            }
                         }
                         else {
                             System.out.println("Your answer is incorrect");
+                            count++;
+                        }
+                        if (count % 3 == 0){
+                            System.out.println(hint.peek());
+                            hint.remove();
                         }
                     }
                 else {

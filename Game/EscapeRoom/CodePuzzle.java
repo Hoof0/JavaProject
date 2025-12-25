@@ -4,8 +4,8 @@ public class CodePuzzle extends Puzzle{
     
     private String pass;
 
-    CodePuzzle(String description, String name, int difficulty, String pass){
-        super(description, name, difficulty);
+    CodePuzzle(String description, String name, int difficulty, Item Reward, String pass, String hint){
+        super(description, name, difficulty, Reward, hint);
         this.pass = pass;
     }
 
@@ -18,4 +18,5 @@ public class CodePuzzle extends Puzzle{
     }
 
 
+    
 }
