@@ -128,7 +128,6 @@ public class GameEngine {
                 System.out.println("Name of puzzle you want to solve: ");
                 String puzzleName = scanner.nextLine();
                 System.out.println("Enter your answer: ");
-                String answer = scanner.nextLine().trim();
                 int count = 0;
                 
                 for (int i = 0; i < curr.getContents().size(); i++){
