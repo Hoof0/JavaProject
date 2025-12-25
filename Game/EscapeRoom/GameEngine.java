@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -11,10 +12,12 @@ public class GameEngine {
     private Player player;
     Queue<String> hint;
     private Scanner scanner;
+    private int failTries = 0;
 
     public GameEngine(Player player){
         this.player = player;
         this.scanner = new Scanner(System.in);
+        this.hint = new LinkedList<>();
     }
 
     void start(){
@@ -126,16 +129,22 @@ public class GameEngine {
                 break;
             case "solve":
                 System.out.println("Name of puzzle you want to solve: ");
-                String puzzleName = scanner.nextLine();
+                String puzzleName = scanner.nextLine().trim().toLowerCase();
                 System.out.println("Enter your answer: ");
-                int count = 0;
+                String answer = scanner.nextLine().trim();
+                boolean found = false;
+
                 
                 for (int i = 0; i < curr.getContents().size(); i++){
                     GameComponent currContent = curr.getContents().get(i);
+                    String currName = currContent.getName().toLowerCase();
                     
-                    if(currContent.getName().equals(puzzleName)){
+                    if(currName.equals(puzzleName)){
+                        found = true;
                         Puzzle puzzle = (Puzzle) currContent;
-                        if (puzzle.isSolved()){
+                        // solve
+
+                        if (puzzle.attemptSolve(answer)){
                             System.out.println("Your answer is correct");
                             if (puzzle.getReward() != null){
                             player.pickupItem(puzzle.getReward());
@@ -148,16 +157,18 @@ public class GameEngine {
                         }
                         else {
                             System.out.println("Your answer is incorrect");
-                            count++;
+                            failTries++;
                         }
-                        if (count % 3 == 0 && !hint.isEmpty()){
-                            System.out.println("Hint: " + hint.peek());
-                            hint.remove();
+                        
+                        if (failTries % 3 == 0 && !hint.isEmpty()){
+                            System.out.println("Hint: " + hint.poll());
                         }
+                        break;
                     }
-                else {
-                    System.out.println("No item of that name found");
                 }
+
+                if(!found){
+                    System.out.println("No item found of that name");
                 }
                 break;
             case "map":

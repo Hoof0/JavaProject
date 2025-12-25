@@ -50,6 +50,14 @@ public class Room
     {
         roomName = name;
     }
+
+    public void addConnectedRoom(Room room){
+        connectedRooms.add(room);
+    }
+
+    public void addContent(GameComponent compo){
+        contents.add(compo);
+    }
     
     public void exploreRecursive(int depth)
     {
