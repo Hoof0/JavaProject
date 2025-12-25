@@ -146,7 +146,6 @@ public class Room
         {
             string += "\nRoom is not the exit";
         }
-
         return string;
     }
 }

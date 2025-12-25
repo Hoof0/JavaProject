@@ -23,10 +23,11 @@ public class Player {
 
     //methods
     public void moveTo(Room r){
-        moveHistory.push(r);
+        
         ArrayList<Room> temp = currentRoom.getConnectedRoom();
-        for (int i = 0; i < currentRoom.getConnectedRoom().size(); i++){
+        for (int i = 0; i < temp.size(); i++){
             if(r == temp.get(i)){
+                moveHistory.push(r);
                 currentRoom = r;
             }
             else {
@@ -36,12 +37,15 @@ public class Player {
 
     }
 
-
-
     public void goBack(){
-        currentRoom = moveHistory.peek();
-        moveHistory.pop();
-    
+        if (!moveHistory.isEmpty())
+        {
+            currentRoom = moveHistory.pop();
+        }
+        else
+        {
+            System.err.println("Cannot go back.");
+        }
     } //pops from stack
 
     public void pickupItem(Item i){

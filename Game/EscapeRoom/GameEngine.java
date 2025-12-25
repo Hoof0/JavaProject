@@ -18,6 +18,7 @@ public class GameEngine {
     }
 
     void start(){
+        System.out.println("Text-based escape room game.\nCommands: look, move, back, pickup, inventory, solve, map, quit.\nFind the exit room to win.");
         while (Win != true){
             String input = scanner.next();
             processCommand(input);
@@ -31,10 +32,16 @@ public class GameEngine {
         }
         visited.add(room);
 
-        String space = " ".repeat(depth);
+        String space = " ".repeat(depth * 2);
         System.out.println(space + "- " + room.getRoomName() + 
                           (room == player.getCurrentRoom() ? " (YOU ARE HERE)" : "") +
                           (room.getExit() ? " [EXIT]" : ""));
+
+        //display connected rooms
+        for (Room connected : room.getConnectedRoom())
+        {
+            helpMap(connected, visited, depth + 1);
+        }
     }
 
     public void processCommand(String cmd){
@@ -46,20 +53,34 @@ public class GameEngine {
                 break;
             case "move":
                 ArrayList<Room> connectRoom = curr.getConnectedRoom();
-                for(int i = 0; i < connectRoom.size(); i++){
-                    System.out.println(connectRoom.get(i).toString());
+                if (connectRoom.isEmpty())
+                {
+                    System.out.println("No connected rooms");
+                    break;
                 }
-                System.out.println("Where would you like to move to");
-                String destination = scanner.next();
-                destination = destination.toLowerCase();
+                for(int i = 0; i < connectRoom.size(); i++){
+                    System.out.println(connectRoom.get(i).getRoomName());
+                }
+                System.out.println("Where would you like to move to?");
+                String destination = scanner.nextLine().trim().toLowerCase();
+                boolean moved = false;
                 for(int i = 0; i < connectRoom.size(); i++){
                     if (destination.equals(connectRoom.get(i).getRoomName().toLowerCase())){
                         player.moveTo(connectRoom.get(i));
+                        System.out.println("Moved.");
+                        moved = true;
+                        break;
                     }
+                }
+
+                if (!moved)
+                {
+                    System.out.println("Invalid room name");
                 }
                 break;
             case "back":
                 player.goBack();
+                System.out.println("Went back.");
                 break;
             case "pickup":
                 ArrayList<GameComponent> roomContents = curr.getContents();
@@ -75,7 +96,7 @@ public class GameEngine {
                         System.out.println(i + "." + roomContents.get(i).getName());
                     }
                     System.out.print("Enter the name of the item you want to pick up: ");
-                    String itemName = scanner.next().trim().toLowerCase();
+                    String itemName = scanner.nextLine().trim().toLowerCase();
                     boolean found = false;
 
                     for(int i = 0; i < roomContents.size(); i++)
@@ -105,33 +126,33 @@ public class GameEngine {
                 break;
             case "solve":
                 System.out.println("Name of puzzle you want to solve: ");
-                String puzzleName = scanner.next();
+                String puzzleName = scanner.nextLine();
                 System.out.println("Enter your answer: ");
-                String answer = scanner.next();
-                GameComponent currContent;
+                String answer = scanner.nextLine().trim();
                 int count = 0;
                 
                 for (int i = 0; i < curr.getContents().size(); i++){
-                    currContent = curr.getContents().get(i);
+                    GameComponent currContent = curr.getContents().get(i);
                     
                     if(currContent.getName().equals(puzzleName)){
                         Puzzle puzzle = (Puzzle) currContent;
-                        if (puzzle.attemptSolve(answer)){
+                        if (puzzle.isSolved()){
                             System.out.println("Your answer is correct");
                             if (puzzle.getReward() != null){
                             player.pickupItem(puzzle.getReward());
                             System.out.println("You received: " + puzzle.getReward().getName());
                             }
-                            if (puzzle.getHint() != null){
+                            if (puzzle.getHint() != null && !puzzle.getHint().isEmpty()){
                                 hint.add(puzzle.getHint());
+                                System.out.println("Hint added.");
                             }
                         }
                         else {
                             System.out.println("Your answer is incorrect");
                             count++;
                         }
-                        if (count % 3 == 0){
-                            System.out.println(hint.peek());
+                        if (count % 3 == 0 && !hint.isEmpty()){
+                            System.out.println("Hint: " + hint.peek());
                             hint.remove();
                         }
                     }

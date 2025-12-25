@@ -13,7 +13,4 @@ public class RiddlePuzzle extends Puzzle{
         else solved = false;
         return solved;
     }
-
-    
-    
 }

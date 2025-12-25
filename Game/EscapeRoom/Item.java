@@ -1,6 +1,6 @@
 
 
-public class Item extends GameComponent implements Collectible, Comparable<Item> {
+public class Item extends GameComponent implements Comparable<Item> {
     private int value;
     private String itemType; //KEY, TOOL, CLUE
 
@@ -9,6 +9,16 @@ public class Item extends GameComponent implements Collectible, Comparable<Item>
         super(name);
         this.value = value;
         this.itemType = itemType;
+    }
+
+    public int getValue()
+    {
+        return value;
+    }
+
+    public String getType()
+    {
+        return itemType;
     }
 
     @Override
@@ -27,13 +37,8 @@ public class Item extends GameComponent implements Collectible, Comparable<Item>
         }
     }
 
-    public void collect(Player p)
-    {
-        
-    }
-
     public void inspect()
     {
-        System.out.println(itemType);
+        System.out.println("Name:" + name + "\nValue: " + value + "\nType: " + itemType);
     }
 }

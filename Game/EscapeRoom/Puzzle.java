@@ -34,6 +34,11 @@ public abstract class Puzzle extends GameComponent implements Comparable<Puzzle>
         return hint;
     }
 
+    public boolean isSolved()
+    {
+        return solved;
+    }
+
     //method
     public abstract boolean attemptSolve(String answer) /* throws InvalidPuzzleAnswerException */;
 

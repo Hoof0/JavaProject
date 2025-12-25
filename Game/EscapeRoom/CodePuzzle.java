@@ -16,7 +16,4 @@ public class CodePuzzle extends Puzzle{
         else solved = false;
         return solved;
     }
-
-
-    
 }
