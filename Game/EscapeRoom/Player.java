@@ -8,6 +8,8 @@ public class Player {
     private Room currentRoom;
 
     Player(Room currentRoom){
+        moveHistory = new Stack<Room>();
+        inventory = new ArrayList<Item>();
         this.currentRoom = currentRoom;
     }
 

@@ -12,7 +12,7 @@ public class CodePuzzle extends Puzzle{
 
     
     public boolean attemptSolve(String answer)/* throws InvalidPuzzleAnswerException /*Implement*/{
-        if (answer.equals(pass)) solved = true;
+        if (answer.equalsIgnoreCase(pass)) solved = true;
         else solved = false;
         return solved;
     }
