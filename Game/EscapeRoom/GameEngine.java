@@ -24,7 +24,7 @@ public class GameEngine {
     void start(){
         System.out.println("Text-based escape room game.\nCommands: look, move, back, pickup, inventory, solve, map, quit.\nFind the exit room to win.");
         while (Win != true){
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             processCommand(input);
         }
     }
