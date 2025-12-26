@@ -93,7 +93,17 @@ public class GameEngine {
                     if (destination.equals(connectRoom.get(i).getRoomName().toLowerCase())){
                         player.moveTo(connectRoom.get(i));
                         System.out.println("Moved to " + player.getCurrentRoom().getRoomName());
-                        
+                        if (player.getCurrentRoom().getExit() == true && puzzleSolved == ALLPUZZLESSOLVED) //win condition: reach exit room and solve all puzzles
+                            {
+                                System.out.println("Congratulation, you escaped!");
+                                Win = true;
+                                break;
+                            }
+                            else if (player.getCurrentRoom().getExit() == true && puzzleSolved != ALLPUZZLESSOLVED)
+                            {
+                                System.out.println("You have reached the exit room, but you cannot escape yet, for you haven't solved all puzzles. Return to the previous rooms and complete them.");
+                                break;
+                            }
                         moved = true;
                         break;
                     }
