@@ -92,7 +92,7 @@ public class GameEngine {
                 for(int i = 0; i < connectRoom.size(); i++){
                     if (destination.equals(connectRoom.get(i).getRoomName().toLowerCase())){
                         player.moveTo(connectRoom.get(i));
-                        System.out.println("Moved to " + curr.getRoomName());
+                        System.out.println("Moved to " + player.getCurrentRoom().getRoomName());
                         
                         moved = true;
                         break;
@@ -136,7 +136,7 @@ public class GameEngine {
 
                     for(int i = 0; i < roomContents.size(); i++)
                     {
-                        if(curr.containsItemRecursive(itemName))
+                        if(curr.containsItemRecursive(itemName) && roomContents.get(i).getName().toLowerCase().equals(itemName))
                         {
                             player.pickupItem((Item)roomContents.get(i));
                             roomContents.remove(i);
