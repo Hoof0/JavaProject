@@ -128,7 +128,7 @@ public class GameEngine {
                     System.out.println("Items to pick up: ");
                     for(int i = 0; i < availableItems.size(); i++)
                     {
-                        System.out.println("." + availableItems.get(i).getName());
+                        System.out.println(availableItems.get(i).getName());
                     }
                     System.out.print("Enter the name of the item you want to pick up: ");
                     String itemName = scanner.nextLine().trim().toLowerCase();

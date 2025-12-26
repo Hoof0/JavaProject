@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Room 
 {
@@ -57,52 +58,78 @@ public class Room
     {
         getConnectedRoom().add(r);
     }
+
+    private void exploreRecursiveHelp(int depth, HashSet<Room> visited){
+        if (visited.contains(this)){
+            return;
+        }
+
+        visited.add(this);
+
+        System.out.println("Room info:\n" + this.toString());
+
+        if(depth == 0){
+            return;
+        }
+
+        for(int i = 0; i < connectedRooms.size(); i++)
+        {
+            connectedRooms.get(i).exploreRecursiveHelp(depth - 1, visited);
+        }
+    } 
     
     public void exploreRecursive(int depth)
     {
-        if(depth == 0)
-        {
-            System.out.println("Room info:\n " + this.toString()); // Example: print room details
-            return;
-        }
-        if(connectedRooms.isEmpty())
-        {
-            System.out.println("Room info:\n" + this.toString());
-        }
-        for(int i = 0; i < connectedRooms.size(); i++)
-        {
-            connectedRooms.get(i).exploreRecursive(depth - 1);
+        exploreRecursiveHelp(depth, new HashSet<Room>());
+
+    }
+
+    public boolean containsItemRecursive(String itemName) {
+    return containsItemRecursiveHelper(itemName, new HashSet<Room>());
+    }
+
+    private boolean containsItemRecursiveHelper(String itemName, HashSet<Room> visited) {
+
+    if (visited.contains(this)) {
+        return false;
+    }
+    
+    visited.add(this);
+    
+    for(int i = 0; i < contents.size(); i++) {
+        if(contents.get(i).getName().toLowerCase().equals(itemName)) {
+            return true;
         }
     }
 
-    public boolean containsItemRecursive(String itemName) // check if the room and its subroom contain an item
-    {
-        for(int i = 0; i < contents.size(); i++)
-        {
-            if(contents.get(i).getName().equals(itemName))
-            {
-                return true;
-            }
+    for(int i = 0; i < connectedRooms.size(); i++) {
+        if(connectedRooms.get(i).containsItemRecursiveHelper(itemName, visited)) {
+            return true;
         }
-
-        for(int i = 0; i < connectedRooms.size(); i++)
-        {
-            if(connectedRooms.get(i).containsItemRecursive(itemName))
-            {
-                return true;
-            }
-        }
-        return false;        
+    }
+    
+    return false;        
     }
 
-    public int maxDepthRecursive()
-    {
+    private int maxDepthRecursiveHelp(HashSet<Room> visted){
+        if (visted.contains(this)){
+            return 0;
+        }
+
+        visted.add(this);
+
         int maxRoomDepth = 0;
+
         for(int i = 0; i < connectedRooms.size(); i++)
         {
             maxRoomDepth = Math.max(maxRoomDepth, connectedRooms.get(i).maxDepthRecursive());
         }
         return maxRoomDepth + 1;
+    }
+
+    public int maxDepthRecursive()
+    {
+        return maxDepthRecursiveHelp(new HashSet<>());
     }
 
     public String toString()
