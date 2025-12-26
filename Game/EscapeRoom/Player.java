@@ -27,14 +27,20 @@ public class Player {
     public void moveTo(Room r){
         
         ArrayList<Room> temp = currentRoom.getConnectedRoom();
+        boolean found = false;
+
         for (int i = 0; i < temp.size(); i++){
             if(r == temp.get(i)){
-                moveHistory.push(r);
-                currentRoom = r;
+                found = true;
+                break;
             }
-            else {
-                System.err.println("Room is not connected");
-            }
+        }
+        if (found){
+            moveHistory.push(currentRoom);
+            currentRoom = r;
+        }
+        else {
+            System.err.println("Room is not connected");
         }
 
     }

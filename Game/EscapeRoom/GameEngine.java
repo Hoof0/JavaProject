@@ -26,6 +26,7 @@ public class GameEngine {
         while (Win != true){
             String input = scanner.nextLine();
             processCommand(input);
+            
         }
     }
 
@@ -62,30 +63,22 @@ public class GameEngine {
                     break;
                 }
                 for(int i = 0; i < connectRoom.size(); i++){
-                    System.out.println("Connect to " + connectRoom.get(i).getRoomName());
+                    System.out.println(connectRoom.get(i).getRoomName());
                 }
                 System.out.println("Where would you like to move to?");
-                String destination = scanner.nextLine().trim().toLowerCase();
+                String destination = scanner.nextLine();
+                destination = destination.toLowerCase().trim();
                 boolean moved = false;
                 for(int i = 0; i < connectRoom.size(); i++){
                     if (destination.equals(connectRoom.get(i).getRoomName().toLowerCase())){
                         player.moveTo(connectRoom.get(i));
                         System.out.println("Moved.");
+                        
                         moved = true;
-                        if (player.getCurrentRoom().getExit() == true && puzzleSolved == ALLPUZZLESSOLVED) //win condition: reach exit room and solve all puzzles
-                            {
-                                System.out.println("Congratulation, you escaped!");
-                                Win = true;
-                                break;
-                            }
-                            else if (player.getCurrentRoom().getExit() == true && puzzleSolved != ALLPUZZLESSOLVED)
-                            {
-                                System.out.println("You have reached the exit room, but you cannot escape yet, for you haven't solved all puzzles. Return to the previous rooms and complete them.");
-                                break;
-                            }
                         break;
                     }
                 }
+
                 if (!moved)
                 {
                     System.out.println("Invalid room name");
