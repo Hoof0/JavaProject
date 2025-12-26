@@ -110,6 +110,8 @@ public class Room
         String string = "";
         string += "Contents:\n";
 
+        System.out.println("====" + getRoomName() + "====");
+
         if(contents.isEmpty())
         {
             string += "- Nothing in this room.";

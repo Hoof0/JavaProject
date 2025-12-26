@@ -22,13 +22,31 @@ public class GameEngine {
     }
 
     void start(){
-        System.out.println("Text-based escape room game.\nCommands: look, move, back, pickup, inventory, solve, map, quit.\nFind the exit room to win.");
+        System.out.print("\033[H\033[2J");
+        System.out.println("=====================Welcome to the Text-Based Escape Room Game!=====================");
+        System.out.println("\nCommands: look, move, back, pickup, inventory, solve, map, help, quit"); 
+        System.out.println("Goal: Solve all puzzles and find the exit room to win!\n");
+    
         while (Win != true){
             String input = scanner.nextLine().trim();
             processCommand(input);
             
         }
     }
+
+    private void printCommands(){
+        System.out.println("  Available Commands:");
+        System.out.println("    look      - Examine current room");
+        System.out.println("    move      - Travel to another room");
+        System.out.println("    back      - Return to previous room");
+        System.out.println("    pickup    - Collect an item");
+        System.out.println("    inventory - View your items");
+        System.out.println("    solve     - Attempt a puzzle");
+        System.out.println("    map       - View room layout");
+        System.out.println("    help      - Show commands again");
+        System.out.println("    quit      - Exit game");
+    }
+
 
     private void helpMap(Room room, HashSet<Room> visited, int depth){
         if (visited.contains(room)){
@@ -49,6 +67,8 @@ public class GameEngine {
     }
 
     public void processCommand(String cmd){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         cmd = cmd.toLowerCase();
         Room curr = player.getCurrentRoom();
         switch (cmd) {
@@ -72,7 +92,7 @@ public class GameEngine {
                 for(int i = 0; i < connectRoom.size(); i++){
                     if (destination.equals(connectRoom.get(i).getRoomName().toLowerCase())){
                         player.moveTo(connectRoom.get(i));
-                        System.out.println("Moved.");
+                        System.out.println("Moved to " + curr.getRoomName());
                         
                         moved = true;
                         break;
@@ -108,7 +128,7 @@ public class GameEngine {
                     System.out.println("Items to pick up: ");
                     for(int i = 0; i < availableItems.size(); i++)
                     {
-                        System.out.println(i + "." + availableItems.get(i).getName());
+                        System.out.println("." + availableItems.get(i).getName());
                     }
                     System.out.print("Enter the name of the item you want to pick up: ");
                     String itemName = scanner.nextLine().trim().toLowerCase();
@@ -116,7 +136,7 @@ public class GameEngine {
 
                     for(int i = 0; i < roomContents.size(); i++)
                     {
-                        if(roomContents.get(i).getName().toLowerCase().equals(itemName) && roomContents.get(i) instanceof Item)
+                        if(curr.containsItemRecursive(itemName))
                         {
                             player.pickupItem((Item)roomContents.get(i));
                             roomContents.remove(i);
@@ -135,9 +155,14 @@ public class GameEngine {
             case "inventory":
                 ArrayList<Item> tempIven = player.getInventory();
                 System.out.println("Inventory: ");
+                if (player.getInventory().isEmpty()){
+                    System.out.println("(empty)");
+                }
+                else {
                 for (int i = 0; i < tempIven.size(); i ++){
                     System.out.println(tempIven.get(i).getName());
                 }
+            }
                 break;
             case "solve":
                 System.out.println("Name of puzzle you want to solve: ");
@@ -198,6 +223,9 @@ public class GameEngine {
             case "quit":
                 System.out.println("Game over.");
                 Win = true;
+                break;
+            case "help":
+                printCommands();
                 break;
             default:
                 System.out.println("Invalid command. Try look, move, back, pickup, inventory, solve, map, quit.");
