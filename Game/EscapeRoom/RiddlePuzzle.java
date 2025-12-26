@@ -9,7 +9,7 @@ public class RiddlePuzzle extends Puzzle{
     }
     
     public boolean attemptSolve(String answer)/* throws InvalidPuzzleAnswerException */{
-        if (answer.equalsIgnoreCase(pass)) solved = true;
+        if (answer.equals(pass)) solved = true;
         else solved = false;
         return solved;
     }

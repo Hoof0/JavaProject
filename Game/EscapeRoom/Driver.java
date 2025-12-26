@@ -50,7 +50,6 @@ public class Driver {
         //create player and start game
         Player player = new Player(entrance);
         GameEngine game = new GameEngine(player);
-
         game.start();
     }
 }
