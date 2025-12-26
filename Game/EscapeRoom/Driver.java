@@ -8,14 +8,14 @@ public class Driver {
         Room exitRoom = new Room("Exit", true);
         
         //connect rooms
-        entrance.getConnectedRoom().add(hallway);
-        hallway.getConnectedRoom().add(entrance);
-        hallway.getConnectedRoom().add(library);
-        hallway.getConnectedRoom().add(treasureRoom);
-        library.getConnectedRoom().add(hallway);
-        treasureRoom.getConnectedRoom().add(hallway);
-        treasureRoom.getConnectedRoom().add(exitRoom);
-        exitRoom.getConnectedRoom().add(treasureRoom);
+        entrance.addConnectedRoom(hallway);
+        hallway.addConnectedRoom(entrance);
+        hallway.addConnectedRoom(entrance);
+        hallway.addConnectedRoom(treasureRoom);
+        library.addConnectedRoom(hallway);
+        treasureRoom.addConnectedRoom(hallway);
+        treasureRoom.addConnectedRoom(exitRoom);
+        exitRoom.addConnectedRoom(treasureRoom);
         
         //create items
         Item key = new Item("Golden Key", 100, "KEY");
