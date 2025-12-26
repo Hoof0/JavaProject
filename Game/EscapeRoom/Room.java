@@ -52,6 +52,11 @@ public class Room
     {
         roomName = name;
     }
+
+    public void addConnectedRoom(Room r)
+    {
+        getConnectedRoom().add(r);
+    }
     
     public void exploreRecursive(int depth)
     {
