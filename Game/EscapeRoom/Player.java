@@ -9,6 +9,8 @@ public class Player {
 
     Player(Room currentRoom){
         this.currentRoom = currentRoom;
+        this.moveHistory = new Stack<>();
+        this.inventory = new ArrayList<>();
     }
 
     public Room getCurrentRoom(){

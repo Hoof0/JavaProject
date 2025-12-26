@@ -18,8 +18,10 @@ public class Room
 
     public Room(String name, boolean exit)
     {
-        roomName = name;
-        isExit = exit;
+        this.contents = new ArrayList<>();
+        this.connectedRooms = new ArrayList<>();
+        this.roomName = name;
+        this.isExit = exit;
     }
 
     public boolean getExit()
