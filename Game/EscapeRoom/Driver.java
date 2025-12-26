@@ -10,7 +10,7 @@ public class Driver {
         //connect rooms
         entrance.addConnectedRoom(hallway);
         hallway.addConnectedRoom(entrance);
-        hallway.addConnectedRoom(entrance);
+        hallway.addConnectedRoom(library);
         hallway.addConnectedRoom(treasureRoom);
         library.addConnectedRoom(hallway);
         treasureRoom.addConnectedRoom(hallway);
