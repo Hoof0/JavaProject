@@ -11,8 +11,6 @@ public class Player {
         moveHistory = new Stack<Room>();
         inventory = new ArrayList<Item>();
         this.currentRoom = currentRoom;
-        this.moveHistory = new Stack<>();
-        this.inventory = new ArrayList<>();
     }
 
     public Room getCurrentRoom(){

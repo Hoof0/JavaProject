@@ -2,7 +2,6 @@
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -18,7 +17,6 @@ public class GameEngine {
     public GameEngine(Player player){
         this.player = player;
         this.scanner = new Scanner(System.in);
-        this.hint = new LinkedList<>();
     }
 
     void start(){
@@ -189,9 +187,12 @@ public class GameEngine {
                                 hint.remove();
                             }
                         }
-                        break;
                     }
+                else {
+                    System.out.println("No item of that name found");
                 }
+            }
+            
                 if (!puzzleFound)
                 {
                     System.out.println("Puzzle not found.");
